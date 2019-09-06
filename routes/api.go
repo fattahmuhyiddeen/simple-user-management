@@ -30,7 +30,7 @@ func APIRoutes() *echo.Echo {
 			}
 
 			switch c.Path() {
-			case "/swagger/*", "/login", "/register", "/ping", "/all_users":
+			case "/swagger/*", "/login", "/register", "/ping":
 				return true
 			default:
 				return false

@@ -7,6 +7,7 @@ CREATE TABLE "public"."users" (
   "id" SERIAL,
   "name" VARCHAR(70),
   "password" VARCHAR(999),
+  "token" VARCHAR(999),
   "email" VARCHAR(70) UNIQUE,
   "created_at" TIMESTAMP,
   "updated_at" TIMESTAMP
