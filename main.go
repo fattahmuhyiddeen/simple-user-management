@@ -6,6 +6,7 @@ import (
 
 	config "github.com/fattahmuhyiddeen/simple-user-management/config"
 	customMiddleware "github.com/fattahmuhyiddeen/simple-user-management/middleware"
+	_ "github.com/fattahmuhyiddeen/simple-user-management/model"
 	"github.com/fattahmuhyiddeen/simple-user-management/routes"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"

@@ -25,6 +25,10 @@ func TestConnection() bool {
 	return err == nil
 }
 
+func init() {
+	connectDB()
+}
+
 var db *sql.DB
 
 func connectDB() {

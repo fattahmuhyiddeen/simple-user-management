@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"log"
 	"net/http"
 	"strconv"
 
@@ -23,11 +24,12 @@ func Register(c echo.Context) (err error) {
 
 	// Validate
 	if err = model.ValidateUser(&user.User); err != nil {
+		log.Println(err)
 		return
 	}
 
 	user.Password = service.HashPassword(user.Password)
-	user.Token = service.GenerateToken(strconv.Itoa(user.ID))
+	// user.Token = service.GenerateToken(strconv.Itoa(user.ID))
 	model.InsertUser(&user.User)
 
 	//remove unnecessary variables from response
@@ -46,7 +48,7 @@ func Login(c echo.Context) (err error) {
 		return response.BadRequest("Login credential not match")
 	}
 	user.User = searchUser
-	user.Token = service.GenerateToken(strconv.Itoa(user.ID))
+	// user.Token = service.GenerateToken(strconv.Itoa(user.ID))
 
 	//remove unnecessary variables from response
 	model.ClearUserSensitiveFields(&user.User)

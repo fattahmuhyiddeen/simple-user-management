@@ -14,50 +14,57 @@ type User struct {
 	ID        int    `json:"id" form:"id"`
 	Email     string `json:"email" form:"email"`
 	Name      string `json:"name" form:"name"`
-	Picture   string `json:"picture" form:"picture"`
-	Token     string `json:"token" form:"token"`
 	Password  string `json:"password,omitempty" form:"password"`
 	CreatedAt string `json:"created_at"`
 	UpdatedAt string `json:"updated_at"`
 }
 
 const userTable = "users"
-const userFields = "email, name, password, picture, created_at, updated_at"
+const userFields = "email, name, created_at"
 
 //GetUserByEmail is to search user by email
 func GetUserByEmail(email string) (user User) {
-	connectDB()
-	defer disconnectDB()
-
-	row := db.QueryRow("SELECT id, "+userFields+" FROM "+userTable+" WHERE email=$1", email)
-	row.Scan(&user.ID, &user.Email, &user.Name, &user.Password, &user.Picture, &user.CreatedAt, &user.UpdatedAt)
+	row := db.QueryRow("SELECT id, email, name, password, created_at FROM "+userTable+" WHERE email=$1", email)
+	row.Scan(&user.ID, &user.Email, &user.Name, &user.Password, &user.CreatedAt)
 	return
 }
 
 //GetUserByID is
 func GetUserByID(id int) (user User) {
-	connectDB()
-	defer disconnectDB()
-
-	row := db.QueryRow("SELECT id, "+userFields+" FROM "+userTable+" WHERE id=$1", id)
-	row.Scan(&user.ID, &user.Email, &user.Name, &user.Password, &user.Picture, &user.CreatedAt, &user.UpdatedAt)
+	row := db.QueryRow("SELECT id, email, name, password, created_at FROM "+userTable+" WHERE id=$1", id)
+	row.Scan(&user.ID, &user.Email, &user.Name, &user.Password, &user.CreatedAt)
 
 	return
 }
 
 //InsertUser is
 func InsertUser(user *User) {
-	connectDB()
-	defer disconnectDB()
-
 	user.UpdatedAt = DateTimeNow()
 	user.CreatedAt = user.UpdatedAt
 
 	err := db.QueryRow(
-		"INSERT INTO "+userTable+" ("+userFields+") VALUES ("+tablePlaceholder(userFields)+") RETURNING id",
-		user.Email, user.Name, user.Password, &user.Picture, user.CreatedAt, user.UpdatedAt,
+		"INSERT INTO "+userTable+" (email, name, password) VALUES ("+tablePlaceholder("email, name, created_at")+") RETURNING id",
+		user.Email, user.Name, user.Password,
 	).Scan(&user.ID)
 	log.Println(err)
+}
+
+func AllUsers() (users []User) {
+	users = []User{}
+	rows, err := db.Query("SELECT id, " + userFields + " FROM " + userTable + " ORDER BY id")
+	if err == nil {
+		for rows.Next() {
+			temp := new(User)
+			rows.Scan(
+				&temp.ID,
+				&temp.Name,
+				&temp.Email,
+				&temp.CreatedAt,
+			)
+			users = append(users, *temp)
+		}
+	}
+	return
 }
 
 //------------------------------------------------------
