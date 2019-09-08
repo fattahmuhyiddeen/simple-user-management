@@ -95,6 +95,4 @@ func ValidateUser(user *User) (err error) {
 
 func ClearUserSensitiveFields(user *User) {
 	user.Password = ""
-	user.CreatedAt = ""
-	user.UpdatedAt = ""
 }
