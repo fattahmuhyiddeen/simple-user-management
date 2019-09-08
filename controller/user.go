@@ -10,5 +10,5 @@ import (
 
 func AllUsers(c echo.Context) (err error) {
 	users := model.AllUsers()
-	return c.JSON(http.StatusCreated, users)
+	return c.JSON(http.StatusOK, users)
 }

@@ -52,7 +52,7 @@ func Login(c echo.Context) (err error) {
 
 	//remove unnecessary variables from response
 	model.ClearUserSensitiveFields(&user.User)
-	return c.JSON(http.StatusCreated, user)
+	return c.JSON(http.StatusOK, user)
 }
 
 func userIDFromToken(c echo.Context) (id int) {
