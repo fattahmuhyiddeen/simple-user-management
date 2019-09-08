@@ -19,7 +19,6 @@ type User struct {
 }
 
 const userTable = "users"
-const userFields = "email, name, created_at"
 
 //GetUserByEmail is to search user by email
 func GetUserByEmail(email string) (user User) {
@@ -50,7 +49,7 @@ func InsertUser(user *User) {
 
 func AllUsers() (users []User) {
 	users = []User{}
-	rows, err := db.Query("SELECT id, " + userFields + " FROM " + userTable + " ORDER BY id")
+	rows, err := db.Query("SELECT id, name, email, created_at FROM " + userTable + " ORDER BY id")
 	if err == nil {
 		for rows.Next() {
 			temp := new(User)
