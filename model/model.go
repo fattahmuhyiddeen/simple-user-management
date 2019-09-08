@@ -40,8 +40,8 @@ func disconnectDB() {
 }
 
 //DateTimeNow return timestamp used for created_at and updated_at
-func DateTimeNow() string {
-	return time.Now().Format(config.DateTimeFormat)
+func DateTimeNow() time.Time {
+	return time.Now()
 }
 
 func tablePlaceholder(columns string) (result string) {
