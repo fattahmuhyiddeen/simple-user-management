@@ -9,8 +9,8 @@ CREATE TABLE "public"."users" (
   "password" VARCHAR(999),
   "token" VARCHAR(999),
   "email" VARCHAR(70) UNIQUE,
-  "created_at" TIMESTAMP,
-  "updated_at" TIMESTAMP
+  "created_at" TIMESTAMP DEFAULT NOW(),
+  "updated_at" TIMESTAMP DEFAULT NOW()
 );
 
 ALTER TABLE "public"."users" OWNER TO "atzgywhtayemui";

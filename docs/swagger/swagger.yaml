@@ -1,0 +1,58 @@
+definitions:
+  model.User:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      password:
+        type: string
+      token:
+        type: string
+      updated_at:
+        type: string
+    type: object
+host: https://simple-user-management.herokuapp.com/
+info:
+  contact:
+    email: fattahmuhyiddeen@gmail.com
+    name: Fattah Muhyiddeen
+    url: https://github.com/fattahmuhyiddeen
+  description: This is a sample user management service.
+  license: {}
+  title: Simple User Management
+  version: "1.0"
+paths:
+  /all_users:
+    get:
+      consumes:
+      - application/json
+      description: Get list of all users
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.User'
+            type: object
+      summary: Get list of all users
+  /register:
+    post:
+      consumes:
+      - application/json
+      description: Register a new user account
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.User'
+            type: object
+      summary: Register new account
+swagger: "2.0"

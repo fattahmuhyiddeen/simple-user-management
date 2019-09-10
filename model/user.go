@@ -38,11 +38,8 @@ func GetUserByID(id int) (user User) {
 
 //InsertUser is
 func InsertUser(user *User) {
-	user.UpdatedAt = DateTimeNow()
-	user.CreatedAt = user.UpdatedAt
-
 	err := db.QueryRow(
-		"INSERT INTO "+userTable+" (email, name, password) VALUES ("+tablePlaceholder("email, name, created_at")+") RETURNING id",
+		"INSERT INTO "+userTable+" (email, name, password) VALUES ("+tablePlaceholder("email, name, password")+") RETURNING id",
 		user.Email, user.Name, user.Password,
 	).Scan(&user.ID)
 	log.Println(err)

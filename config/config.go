@@ -3,12 +3,12 @@ package config
 import (
 	"log"
 	"os"
-
 )
 
 var GenerateTokenKey = os.Getenv("GENERATE_TOKEN_KEY")
+
+// APPPort is to get PORT from env. In heroku, PORT is declared implicitly and randomly
 var APPPort = os.Getenv("PORT")
-var APPURL = os.Getenv("APP_URL")
 var DatabaseURL = os.Getenv("DATABASE_URL")
 var Env = os.Getenv("ENV")
 var AESKey = os.Getenv("AES_KEY")
@@ -23,6 +23,4 @@ func init() {
 	if AESKey == "" {
 		log.Fatal("cannot find AES_KEY from env")
 	}
-
-	log.Println(DatabaseURL)
 }

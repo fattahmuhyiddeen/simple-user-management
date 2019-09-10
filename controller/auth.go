@@ -17,7 +17,14 @@ type UserStruct struct {
 	model.User
 }
 
-//Register is
+// Register godoc
+// @Summary Register new account
+// @Description Register a new user account
+// @Accept  json
+// @Produce  json
+// @Success 201 {object} model.User
+// @Header 200 {string} Token "qwerty"
+// @Router /register [post]
 func Register(c echo.Context) (err error) {
 	user := new(UserStruct)
 	c.Bind(user)
